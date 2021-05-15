@@ -24,6 +24,18 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-elytron-security-properties-file</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-jdbc-postgresql</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
@@ -43,7 +55,68 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+                <version>${liquibase-core.version}</version>
+                <configuration>
+                    <changeLogFile>db/changelog/db-changelog.xml</changeLogFile>
+                    <username>${postgres.user}</username>
+                    <password>${postgres.password}</password>
+                    <url>${postgres.url}</url>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>update</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.dkanejs.maven.plugins</groupId>
+                <artifactId>docker-compose-maven-plugin</artifactId>
+                <version>${docker-compose-maven-plugin.version}</version>
+                <configuration>
+                    <composeFile>${project.basedir}/docker-compose.yaml</composeFile>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>up</id>
+            <build>
+                <defaultGoal>docker-compose:pull docker-compose:up</defaultGoal>
+                <plugins>
+                    <plugin>
+                        <groupId>com.dkanejs.maven.plugins</groupId>
+                        <artifactId>docker-compose-maven-plugin</artifactId>
+                        <configuration>
+                            <skip>false</skip>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>down</id>
+            <build>
+                <defaultGoal>docker-compose:down</defaultGoal>
+                <plugins>
+                    <plugin>
+                        <groupId>com.dkanejs.maven.plugins</groupId>
+                        <artifactId>docker-compose-maven-plugin</artifactId>
+                        <configuration>
+                            <skip>false</skip>
+                            <detachedMode>false</detachedMode>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>

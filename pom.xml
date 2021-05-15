@@ -14,9 +14,19 @@
     </modules>
 
     <properties>
+        <postgres.user>postgres</postgres.user>
+        <postgres.host>127.0.0.1</postgres.host>
+        <postgres.password>postgres</postgres.password>
+        <postgres.database>downloader_db</postgres.database>
+        <postgres.url>jdbc:postgresql://${postgres.host}:5432/${postgres.database}</postgres.url>
+
         <java.version>1.8</java.version>
         <quarkus.version>1.13.3.Final</quarkus.version>
+        <postgresql.version>42.2.18</postgresql.version>
+        <liquibase-core.version>4.2.2</liquibase-core.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+        <quarkus-jdbc-postgresql.version>1.13.4.Final</quarkus-jdbc-postgresql.version>
+        <docker-compose-maven-plugin.version>4.0.0</docker-compose-maven-plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -27,6 +37,24 @@
                 <version>${quarkus.version}</version>
                 <scope>import</scope>
                 <type>pom</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-core</artifactId>
+                <version>${liquibase-core.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>${postgresql.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.quarkus</groupId>
+                <artifactId>quarkus-jdbc-postgresql</artifactId>
+                <version>${quarkus-jdbc-postgresql.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
