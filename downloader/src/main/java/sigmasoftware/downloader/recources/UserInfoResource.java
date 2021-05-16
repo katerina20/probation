@@ -1,4 +1,4 @@
-package sigmasoftware.downloader;
+package sigmasoftware.downloader.recources;
 
 import io.quarkus.qute.Template;
 import io.quarkus.qute.TemplateInstance;
@@ -9,15 +9,15 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-@Path("/main")
-public class MainPageResource {
+@Path("/info")
+public class UserInfoResource {
 
     @Inject
-    Template main;
+    Template info;
 
     @GET
     @Produces(MediaType.TEXT_HTML)
     public TemplateInstance get() {
-        return main.data("userInfo", new UserInfo.Builder().name("Katet").build());
+        return info.instance();
     }
 }

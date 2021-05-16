@@ -1,13 +1,15 @@
-package sigmasoftware.downloader;
+package sigmasoftware.downloader.dto;
 
 public class UserInfo {
 
     private String name;
     private String surname;
+    private String role;
+    private String password;
     private String country;
     private String city;
     private String phoneNumber;
-    private String age;
+    private int age;
     private String nationality;
 
     public static class Builder {
@@ -31,6 +33,16 @@ public class UserInfo {
             return this;
         }
 
+        public Builder role(String role) {
+            userInfo.role = role;
+            return this;
+        }
+
+        public Builder password(String password) {
+            userInfo.password = password;
+            return this;
+        }
+
         public Builder country(String country) {
             userInfo.country = country;
             return this;
@@ -46,7 +58,7 @@ public class UserInfo {
             return this;
         }
 
-        public Builder age(String age) {
+        public Builder age(int age) {
             userInfo.age = age;
             return this;
         }
@@ -55,6 +67,14 @@ public class UserInfo {
             userInfo.nationality = nationality;
             return this;
         }
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public String getName() {
@@ -77,7 +97,7 @@ public class UserInfo {
         return phoneNumber;
     }
 
-    public String getAge() {
+    public int getAge() {
         return age;
     }
 
