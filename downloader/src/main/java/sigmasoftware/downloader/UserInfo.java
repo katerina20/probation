@@ -57,4 +57,31 @@ public class UserInfo {
         }
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public String getNationality() {
+        return nationality;
+    }
 }

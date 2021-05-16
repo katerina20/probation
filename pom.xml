@@ -21,11 +21,10 @@
         <postgres.url>jdbc:postgresql://${postgres.host}:5432/${postgres.database}</postgres.url>
 
         <java.version>1.8</java.version>
-        <quarkus.version>1.13.3.Final</quarkus.version>
+        <quarkus.version>1.13.4.Final</quarkus.version>
         <postgresql.version>42.2.18</postgresql.version>
         <liquibase-core.version>4.2.2</liquibase-core.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
-        <quarkus-jdbc-postgresql.version>1.13.4.Final</quarkus-jdbc-postgresql.version>
         <docker-compose-maven-plugin.version>4.0.0</docker-compose-maven-plugin.version>
     </properties>
 
@@ -54,7 +53,13 @@
             <dependency>
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-jdbc-postgresql</artifactId>
-                <version>${quarkus-jdbc-postgresql.version}</version>
+                <version>${quarkus.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.quarkus</groupId>
+                <artifactId>quarkus-resteasy-qute</artifactId>
+                <version>${quarkus.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
