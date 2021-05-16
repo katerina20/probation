@@ -54,6 +54,12 @@
                 <artifactId>quarkus-liquibase</artifactId>
                 <version>${quarkus.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>io.quarkus</groupId>
+                <artifactId>quarkus-elytron-security-jdbc</artifactId>
+                <version>${quarkus.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

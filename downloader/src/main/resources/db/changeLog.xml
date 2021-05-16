@@ -5,11 +5,16 @@
 
     <changeSet author="downloader" id="tableInit">
         <createTable tableName="users">
-            <column name="id" type="BIGSERIAL">
-                <constraints nullable="false" primaryKey="true"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints primaryKey="true"/>
             </column>
-            <column name="name" type="VARCHAR(255)"/>
             <column name="surname" type="VARCHAR(255)"/>
+            <column name="role" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
             <column name="country" type="VARCHAR(255)"/>
             <column name="city" type="VARCHAR(255)"/>
             <column name="phoneNumber" type="VARCHAR(255)"/>
@@ -24,4 +29,24 @@
             <column name="url" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
+    <changeSet  author="downloader"  id="createView">
+        <createView replaceIfExists="false"
+                    schemaName="public"
+                    viewName="users_fullnames">
+            select name, surname from users
+        </createView>
+    </changeSet>
+    <changeSet author="downloader" id="insertUsers">
+        <insert tableName="users">
+            <column name="name" value="Bob"/>
+            <column name="role" value="ADMIN"/>
+            <column name="password" value="bob_pass"/>
+        </insert>
+        <insert tableName="users">
+            <column name="name" value="Alice"/>
+            <column name="role" value="USER"/>
+            <column name="password" value="alice_pass"/>
+        </insert>
+    </changeSet>
+
 </databaseChangeLog>
