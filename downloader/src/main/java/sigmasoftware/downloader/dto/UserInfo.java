@@ -1,7 +1,14 @@
 package sigmasoftware.downloader.dto;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "users")
 public class UserInfo {
 
+    @Id
     private String name;
     private String surname;
     private String role;
