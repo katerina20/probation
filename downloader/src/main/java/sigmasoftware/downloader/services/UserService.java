@@ -5,7 +5,9 @@ import sigmasoftware.downloader.dto.UserInfo;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
 import javax.sql.DataSource;
+import javax.transaction.Transactional;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -15,6 +17,9 @@ public class UserService {
 
     @Inject
     DataSource dataSource;
+
+    @Inject
+    EntityManager entityManager;
 
     public UserInfo getFullName(String name) {
         ResultSet resultSet = Try
@@ -35,5 +40,12 @@ public class UserService {
         })
                   .onFailure(throwable -> System.out.println(throwable.getMessage()))
                   .get();
+    }
+
+    @Transactional
+    public UserInfo update(UserInfo userInfo) {
+        userInfo = new UserInfo.Builder().name("Bob").surname("Bobster").password("bob_pass").role("ADMIN").build();
+        UserInfo merge = entityManager.merge(userInfo);
+        return merge;
     }
 }

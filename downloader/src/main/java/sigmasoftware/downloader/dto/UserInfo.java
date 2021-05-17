@@ -1,9 +1,15 @@
 package sigmasoftware.downloader.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "users")
 public class UserInfo {
@@ -15,8 +21,10 @@ public class UserInfo {
     private String password;
     private String country;
     private String city;
+
+    @Column(name = "phone_number")
     private String phoneNumber;
-    private int age;
+    private Integer age;
     private String nationality;
 
     public static class Builder {
@@ -74,41 +82,5 @@ public class UserInfo {
             userInfo.nationality = nationality;
             return this;
         }
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public String getNationality() {
-        return nationality;
     }
 }

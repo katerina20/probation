@@ -32,39 +32,90 @@
             margin-left: .5em;
         }
     </style>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script type="text/javascript">
+        var app = angular.module("InfoManagement", []);
+
+        //Controller Part
+        app.controller("InfoManagementController", function ($scope, $http) {
+
+            //Initialize page with default data which is blank in this example
+            $scope.userInfo = [];
+
+            $scope.form = {
+                name: "",
+                description: ""
+            };
+
+            $scope.update = function () {
+                var data = {"name": $scope.userInfo.name,
+                "surname": $scope.userInfo.surname,
+                "country": $scope.userInfo.country,
+                "city": $scope.userInfo.city,
+                "phoneNumber": $scope.userInfo.phoneNumber,
+                "age": $scope.userInfo.age,
+                "nationality": $scope.userInfo.nationality
+                };
+                console.log(data);
+
+                $http({
+                    method: "POST",
+                    url: '/info',
+                    data: angular.toJson(data),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then(_success, _error);
+            };
+
+            function _success(response) {
+                _clearForm();
+            }
+
+            function _error(response) {
+                alert(response.data.message || response.statusText);
+            }
+
+            //Clear the form
+            function _clearForm() {
+                $scope.form.name = "";
+                $scope.form.description = "";
+            }
+        });
+    </script>
 </head>
-<body>
+<body ng-app="InfoManagement" ng-controller="InfoManagementController">
 
 <div>
-    <form action="/info" method="POST">
+    <form ng-submit="update()">
         <ul>
             <li>
                 <label for="name">Name:</label>
-                <input type="text" id="name" name="name">
+                <input type="text" id="name" ng-model="userInfo.name">
             </li>
             <li>
                 <label for="surname">Surname:</label>
-                <input type="text" id="surname" name="surname">
+                <input type="text" id="surname" ng-model="userInfo.surname">
             </li>
             <li>
                 <label for="country">Country:</label>
-                <input type="text" id="country" name="country">
+                <input type="text" id="country" ng-model="userInfo.country">
             </li>
             <li>
                 <label for="city">City:</label>
-                <input type="text" id="city" name="city">
+                <input type="text" id="city" ng-model="userInfo.city">
             </li>
             <li>
                 <label for="phoneNumber">Phone number:</label>
-                <input type="text" id="phoneNumber" name="phoneNumber">
+                <input type="text" id="phoneNumber" ng-model="userInfo.phoneNumber">
             </li>
             <li>
                 <label for="age">Age:</label>
-                <input type="text" id="age" name="age">
+                <input type="text" id="age" ng-model="userInfo.age">
             </li>
             <li>
                 <label for="nationality">Nationality:</label>
-                <input type="text" id="nationality" name="nationality">
+                <input type="text" id="nationality" ng-model="userInfo.nationality">
             </li>
             <li class="button">
                 <button type="submit">Save</button>
