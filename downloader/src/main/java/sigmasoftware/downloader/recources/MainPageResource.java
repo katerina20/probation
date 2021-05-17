@@ -2,6 +2,7 @@ package sigmasoftware.downloader.recources;
 
 import io.quarkus.qute.Template;
 import io.quarkus.qute.TemplateInstance;
+import sigmasoftware.downloader.dto.UserInfo;
 import sigmasoftware.downloader.services.UserService;
 
 import javax.annotation.security.PermitAll;
@@ -30,6 +31,7 @@ public class MainPageResource {
         Principal user = sec.getUserPrincipal();
         if (user == null) return main.instance();
         String name = user.getName();
+        userService.update(new UserInfo.Builder().build());
         return main.data("userInfo", userService.getFullName(name));
     }
 }
