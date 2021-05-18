@@ -15,7 +15,7 @@ import javax.persistence.Table;
 public class File {
 
     @Id
-    private long id;
+    private Long id;
     private String name;
     private String url;
 
