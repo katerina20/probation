@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Files</title>
+    <style>
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        form li + li {
+            margin-top: 1em;
+        }
+
+        label {
+            display: inline-block;
+            width: 90px;
+            text-align: right;
+        }
+
+        input:focus {
+            border-color: #000;
+        }
+
+        .button {
+            padding-left: 90px;
+        }
+
+        button {
+            margin-left: .5em;
+        }
+    </style>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script type="text/javascript">
+        var app = angular.module("FileManagement", []);
+
+        app.controller("FileManagementController", function ($scope, $http) {
+
+            $scope.file = [];
+
+            $scope.add = function () {
+                var data = {"name": $scope.file.name,
+                    "url": $scope.file.url
+                };
+
+                $http({
+                    method: "POST",
+                    url: '/files',
+                    data: angular.toJson(data),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then(_success, _error);
+            };
+
+            function _success(response) {
+                _clearForm();
+            }
+
+            function _error(response) {
+                alert(response.data.message || response.statusText);
+            }
+
+            function _clearForm() {
+                $scope.form.name = "";
+                $scope.form.description = "";
+            }
+        });
+    </script>
+</head>
+<body ng-app="FileManagement" ng-controller="FileManagementController">
+
+<div>
+    <form ng-submit="add()">
+        <ul>
+            <li>
+                <label for="name">Name:</label>
+                <input type="text" id="name" ng-model="file.name">
+            </li>
+            <li>
+                <label for="url">URL:</label>
+                <input type="text" id="url" ng-model="file.url">
+            </li>
+            <li class="button">
+                <button type="submit">Save</button>
+            </li>
+        </ul>
+    </form>
+</div>
+
+</body>
+</html>
