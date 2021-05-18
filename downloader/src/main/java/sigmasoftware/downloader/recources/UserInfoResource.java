@@ -3,6 +3,7 @@ package sigmasoftware.downloader.recources;
 import io.quarkus.qute.Template;
 import io.quarkus.qute.TemplateInstance;
 import sigmasoftware.downloader.dto.UserInfo;
+import sigmasoftware.downloader.services.UserService;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -14,6 +15,9 @@ public class UserInfoResource {
     @Inject
     Template info;
 
+    @Inject
+    UserService userService;
+
     @GET
     @Produces(MediaType.TEXT_HTML)
     public TemplateInstance get() {
@@ -22,7 +26,7 @@ public class UserInfoResource {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public void post(UserInfo userInfo) {
-        System.out.println(userInfo);
+    public UserInfo post(UserInfo userInfo) {
+        return userService.update(userInfo);
     }
 }

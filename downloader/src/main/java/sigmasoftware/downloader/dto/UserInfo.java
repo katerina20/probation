@@ -28,7 +28,7 @@ public class UserInfo {
     private String nationality;
 
     public static class Builder {
-        private UserInfo userInfo;
+        private final UserInfo userInfo;
 
         public Builder() {
             userInfo = new UserInfo();
