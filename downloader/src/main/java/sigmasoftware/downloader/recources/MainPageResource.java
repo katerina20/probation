@@ -31,7 +31,6 @@ public class MainPageResource {
         Principal user = sec.getUserPrincipal();
         if (user == null) return main.instance();
         String name = user.getName();
-        userService.update(new UserInfo.Builder().build());
         return main.data("userInfo", userService.getFullName(name));
     }
 }

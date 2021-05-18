@@ -27,6 +27,11 @@
             </column>
             <column name="name" type="VARCHAR(255)"/>
             <column name="url" type="VARCHAR(255)"/>
+            <column name="admin_name" type="VARCHAR(255)">
+                <constraints
+                        foreignKeyName="admin_name"
+                        references="users(name)" />
+            </column>
         </createTable>
     </changeSet>
     <changeSet  author="downloader"  id="createView">
@@ -46,6 +51,18 @@
             <column name="name" value="Alice"/>
             <column name="role" value="USER"/>
             <column name="password" value="alice_pass"/>
+        </insert>
+    </changeSet>
+    <changeSet author="downloader" id="insertFiles">
+        <insert tableName="files">
+            <column name="name" value="Favourite pdf"/>
+            <column name="url" value="https://file-examples-com.github.io/uploads/2017/10/file-example_PDF_1MB.pdf"/>
+            <column name="admin_name" value="Alice"/>
+        </insert>
+        <insert tableName="files">
+            <column name="name" value="Important excel"/>
+            <column name="url" value="https://file-examples-com.github.io/uploads/2017/02/file_example_XLSX_10.xlsx"/>
+            <column name="admin_name" value="Alice"/>
         </insert>
     </changeSet>
 

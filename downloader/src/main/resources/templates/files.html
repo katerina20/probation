@@ -5,13 +5,16 @@
     <title>Files</title>
 </head>
 <body>
-<h1>List of available files</h1>
+<h3>List of available files</h3>
 <ul>
-<!--    {#for file in files}-->
+    {#for file in files}
     <li>
-<!--        <a href="/test">{file.name}</a>-->
+        <p>
+            <span>{file.name}</span>
+            <a href="/file/{file.id}">download</a>
+        </p>
     </li>
-<!--    {/for}-->
+    {/for}
 </ul>
 </body>
 </html>

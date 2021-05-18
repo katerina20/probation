@@ -2,6 +2,7 @@ package sigmasoftware.downloader.recources;
 
 import io.quarkus.qute.Template;
 import io.quarkus.qute.TemplateInstance;
+import sigmasoftware.downloader.services.FileService;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
@@ -16,10 +17,13 @@ public class FileResource {
     @Inject
     Template files;
 
+    @Inject
+    FileService fileService;
+
     @GET
     @RolesAllowed("ADMIN")
     @Produces(MediaType.TEXT_HTML)
     public TemplateInstance get() {
-        return files.instance();
+        return files.data("files", fileService.getAll());
     }
 }

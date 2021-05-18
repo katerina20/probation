@@ -44,8 +44,16 @@ public class UserService {
 
     @Transactional
     public UserInfo update(UserInfo userInfo) {
-        userInfo = new UserInfo.Builder().name("Bob").surname("Bobster").password("bob_pass").role("ADMIN").build();
-        UserInfo merge = entityManager.merge(userInfo);
-        return merge;
+        UserInfo foundUser = entityManager.find(UserInfo.class, userInfo.getName());
+
+        if (userInfo.getName() != null) foundUser.setName(userInfo.getName());
+        if (userInfo.getSurname() != null) foundUser.setSurname(userInfo.getSurname());
+        if (userInfo.getCountry() != null) foundUser.setCountry(userInfo.getCountry());
+        if (userInfo.getCity() != null) foundUser.setCity(userInfo.getCity());
+        if (userInfo.getPhoneNumber() != null) foundUser.setPhoneNumber(userInfo.getPhoneNumber());
+        if (userInfo.getAge() != 0) foundUser.setAge(userInfo.getAge());
+        if (userInfo.getNationality() != null) foundUser.setNationality(userInfo.getNationality());
+
+        return entityManager.merge(userInfo);
     }
 }
