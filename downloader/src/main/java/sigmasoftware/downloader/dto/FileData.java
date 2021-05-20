@@ -12,7 +12,7 @@ import javax.persistence.Table;
 @Setter
 @Entity
 @Table(name = "files")
-public class File {
+public class FileData {
 
     @Id
     private Long id;

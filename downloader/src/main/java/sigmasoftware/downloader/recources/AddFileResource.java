@@ -3,8 +3,8 @@ package sigmasoftware.downloader.recources;
 import io.quarkus.qute.Template;
 import io.quarkus.qute.TemplateInstance;
 import io.quarkus.security.identity.SecurityIdentity;
-import sigmasoftware.downloader.dto.UserInfo;
-import sigmasoftware.downloader.services.UserService;
+import sigmasoftware.downloader.dto.FileData;
+import sigmasoftware.downloader.services.FileService;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
@@ -12,15 +12,15 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.security.Principal;
 
-@Path("/info")
-@RolesAllowed({"ADMIN", "USER"})
-public class UserInfoResource {
+@Path("/addFile")
+@RolesAllowed("ADMIN")
+public class AddFileResource {
 
     @Inject
-    Template info;
+    Template addFile;
 
     @Inject
-    UserService userService;
+    FileService fileService;
 
     @Inject
     SecurityIdentity securityIdentity;
@@ -28,14 +28,18 @@ public class UserInfoResource {
     @GET
     @Produces(MediaType.TEXT_HTML)
     public TemplateInstance get() {
-        return info.instance();
+        return addFile.instance();
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public UserInfo post(UserInfo userInfo) {
+    @Produces(MediaType.APPLICATION_JSON)
+    public void post(FileData file) {
+        // Principal user = sec.getUserPrincipal();
+        // String name = user.getName();
         Principal user = securityIdentity.getPrincipal();
         String name = user.getName();
-        return userService.update(userInfo, name);
+        file.setAdminName(name);
+        fileService.add(file);
     }
 }

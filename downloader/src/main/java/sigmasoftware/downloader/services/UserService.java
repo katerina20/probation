@@ -44,8 +44,8 @@ public class UserService {
     }
 
     @Transactional
-    public UserInfo update(UserInfo userInfo) {
-        UserInfo foundUser = entityManager.find(UserInfo.class, userInfo.getName());
+    public UserInfo update(UserInfo userInfo, String name) {
+        UserInfo foundUser = entityManager.find(UserInfo.class, name);
 
         if (Objects.nonNull(userInfo.getName())) foundUser.setName(userInfo.getName());
         if (Objects.nonNull(userInfo.getSurname())) foundUser.setSurname(userInfo.getSurname());
@@ -55,6 +55,6 @@ public class UserService {
         if (Objects.nonNull(userInfo.getAge())) foundUser.setAge(userInfo.getAge());
         if (Objects.nonNull(userInfo.getNationality())) foundUser.setNationality(userInfo.getNationality());
 
-        return entityManager.merge(userInfo);
+        return entityManager.merge(foundUser);
     }
 }
